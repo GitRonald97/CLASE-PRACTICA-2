@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrusel de Imágenes</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #carrusel {
+      width: 300px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      display: inline-block;
+      width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .boton {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      cursor: pointer;
+      background-color: #ccc;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+    }
+
+    #anterior {
+      left: 0;
+    }
+
+    #siguiente {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="carrusel">
+  <div class="slide">
+    <img src="images/imagen1.jpg" alt="Imagen 1">
+  </div>
+  <div class="slide">
+    <img src="images/imagen2.jpg" alt="Imagen 2">
+  </div>
+  <div class="slide">
+    <img src="images/imagen3.jpg" alt="Imagen 3">
+  </div>
+</div>
+
+<button id="anterior" class="boton">&lt; Anterior</button>
+<button id="siguiente" class="boton">Siguiente &gt;</button>
+
+<script>
+  const carrusel = document.getElementById("carrusel");
+  const slides = document.querySelectorAll(".slide");
+  const anteriorBtn = document.getElementById("anterior");
+  const siguienteBtn = document.getElementById("siguiente");
+  let currentIndex = 0;
+
+  function mostrarSlide(index) {
+    carrusel.style.transform = `translateX(${-index * 300}px)`;
+  }
+
+  function mostrarSiguienteSlide() {
+    currentIndex++;
+    if (currentIndex >= slides.length) {
+      currentIndex = 0;
+    }
+    mostrarSlide(currentIndex);
+  }
+
+  function mostrarSlideAnterior() {
+    currentIndex--;
+    if (currentIndex < 0) {
+      currentIndex = slides.length - 1;
+    }
+    mostrarSlide(currentIndex);
+  }
+
+  anteriorBtn.addEventListener("click", mostrarSlideAnterior);
+  siguienteBtn.addEventListener("click", mostrarSiguienteSlide);
+</script>
+
+</body>
+</html>
